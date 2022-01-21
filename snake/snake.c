@@ -219,7 +219,8 @@ void jsnake_game_init(jsnake_game_t* gs, uint32_t lfsr_seed, uint32_t us_per_ste
     gs->snake[1] = (jsnake_point_t){(width >> 1), (height >> 1)};
     gs->snake[0] = (jsnake_point_t){(width >> 1), (height >> 1) - 1};
     gs->snakelen = 2;
-    gs->snakedir = SNAKEDIR_UP;
+    gs->snakedir = SNAKEDIR_LEFT;
+    gs->snakedir_first = SNAKEDIR_LEFT;
 
     /* we just assume that these are a sane number, say, 20 x 10. */
     gs->field_width = width;

@@ -18,10 +18,10 @@
 
 #include "./snake.h"
 
-#define UP              'A'
-#define DOWN            'B'
-#define RIGHT           'C'
-#define LEFT            'D'
+#define UP              'w'
+#define DOWN            's'
+#define RIGHT           'd'
+#define LEFT            'a'
 
 #define WIDTH           24
 #define HEIGHT          30
@@ -133,22 +133,7 @@ int main(int argc, char** argv)
         up = down = left = right = 0;
         while(kbhit())
         {
-            const char kbpfx[4] = "\033[";
-            int key = 1;
-            int i;
-            for(i = 0; (i < 2) && (1 || kbhit()); i++)
-            {
-                int c = fgetc(stdin);
-                if(kbpfx[i] != c)
-                {
-                    key = 0;
-                    break;
-                }
-            }
-
-            if(key && (1 || kbhit()))
-                key = fgetc(stdin);
-
+            unsigned char key = fgetc(stdin);
             switch(key)
             {
                 case UP:
@@ -172,21 +157,16 @@ int main(int argc, char** argv)
 
         /* move stuff around */
         jsnake_update_state(&game, &ui, 100000);
-
         /* draw */
-        draw_snake(&game);
-
-        struct timespec req = {0, 100000000};
+        draw_snake(&game);            
+        struct timespec req = {0, 10000000};
         nanosleep(&req, NULL);
+
     }
 
     printf("\033[2J");
     printf("\033[1;1H");
-    printf("GAME OVER\n\n\ncontrol+c to quit\n");
+    printf("GAME OVER\n");
 
-    while(1)
-    {
-        struct timespec req = {0, 10000000};
-        nanosleep(&req, NULL);
-    }
+    return 0;
 }
