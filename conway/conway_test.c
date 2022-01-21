@@ -18,10 +18,10 @@
 
 #include "./conway.h"
 
-#define UP              'A'
-#define DOWN            'B'
-#define RIGHT           'C'
-#define LEFT            'D'
+#define UP              'w'
+#define DOWN            's'
+#define RIGHT           'd'
+#define LEFT            'a'
 
 #define SPACE          ' '
 
@@ -185,48 +185,30 @@ int main(int argc, char** argv)
         up = down = left = right = space = next = 0;
         while(kbhit())
         {
-            const char kbpfx[4] = "\033[";
-            int key = 1;
-            int i;
-            int c;
-            for(i = 0; (i < 2) && (1 || kbhit()); i++)
+            unsigned char key = fgetc(stdin);
+
+            switch(key)
             {
-                c = fgetc(stdin);
-                if(kbpfx[i] != c)
-                {
-                    key = 0;
+                case UP:
+                    up = 1;
                     break;
-                }
+                case DOWN:
+                    down = 1;
+                    break;
+                case LEFT:
+                    left = 1;
+                    break;
+                case RIGHT:
+                    right = 1;
+                    break;
+                case NEXT:
+                    next = 1;
+                    break;
+                case SPACE:
+                    space = 1;
+                    break;
             }
-
-            if(key && (1 || kbhit())) {
-                key = fgetc(stdin);
-
-                switch(key)
-                {
-                    case UP:
-                        up = 1;
-                        break;
-                    case DOWN:
-                        down = 1;
-                        break;
-                    case LEFT:
-                        left = 1;
-                        break;
-                    case RIGHT:
-                        right = 1;
-                        break;
-                }
-            } else {
-                switch(c) {
-                    case NEXT:
-                        next = 1;
-                        break;
-                    case SPACE:
-                        space = 1;
-                        break;
-                }
-            }
+            
         }
 
         /* move stuff around */
